@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 
-app = FastAPI(
-    title="Production RAG",
-    version="0.1.0",
-)
+from app.api.routes import router
+
+app = FastAPI()
+
+app.include_router(router)
 
 
 @app.get("/health")
-def health() -> dict[str, str]:
+def health():
     return {"status": "ok"}

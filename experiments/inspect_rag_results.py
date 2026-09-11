@@ -1,31 +1,33 @@
 from app.database import SessionLocal
+from app.generation.llm import OllamaLLMProvider
+from app.generation.service import RAGService
 from app.ingestion.embedding import OllamaEmbeddingProvider
 from app.retrieval.retriever import search_similar_chunks
 
-query = "Carrot Halva"
-
-provider = OllamaEmbeddingProvider(
-    model="nomic-embed-text:latest",
+embedding_provider = OllamaEmbeddingProvider(
+    model="nomic-embed-text:latest ",
 )
 
-query_embedding = provider.embed(query)
+llm_provider = OllamaLLMProvider(
+    model="gemma3:4b",
+)
 
-session = SessionLocal()
+query = "How do I make carrot halva?"
 
-try:
+query_embedding = embedding_provider.embed(query)
+
+with SessionLocal() as session:
     results = search_similar_chunks(
-        session,
-        query_embedding,
+        session=session,
+        query_embedding=query_embedding,
         limit=5,
     )
 
-    for result in results:
-        print(
-            result.chunk.metadata_["recipe_name"],
-            result.chunk.metadata_["section"],
-            result.distance,
-            result.similarity,
-        )
+rag = RAGService(llm_provider)
 
-finally:
-    session.close()
+answer = rag.answer(
+    question=query,
+    results=results,
+)
+
+print(answer)
