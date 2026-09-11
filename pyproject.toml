@@ -11,10 +11,17 @@ dependencies = [
     "psycopg[binary]",
     "pgvector",
     "alembic",
+    "unstructured[pdf]",
+    "ollama",
 ]
 
 [tool.setuptools.packages.find]
+where = ["."]
 include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
 
 [dependency-groups]
 dev = [
