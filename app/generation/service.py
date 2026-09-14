@@ -37,7 +37,7 @@ class RAGService:
             session=session,
             query="recipes using carrots",
             query_embedding=query_embedding,
-            limit=5,
+            limit=limit,
         )
 
         return self.answer(
