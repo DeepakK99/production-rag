@@ -20,7 +20,8 @@ def test_build_citations():
 
     result = RetrievalResult(
         chunk=chunk,
-        distance=0.2,
+        score=0.2,
+        source="vector",
     )
 
     citations = build_citations([result])

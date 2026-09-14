@@ -14,7 +14,7 @@ def build_context(results: list[RetrievalResult]) -> str:
                     f"Recipe: {chunk.metadata_['recipe_name']}",
                     f"Section: {chunk.metadata_['section']}",
                     f"Pages: {', '.join(map(str, chunk.metadata_['pages']))}",
-                    f"Similarity: {result.similarity:.4f}",
+                    f"Score: {result.score:.4f}",
                     "",
                     chunk.content,
                 ]

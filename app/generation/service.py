@@ -6,8 +6,8 @@ from app.generation.llm import LLMProvider
 from app.ingestion.embedding import EmbeddingProvider
 from app.retrieval.citations import Citation, build_citations
 from app.retrieval.context import build_context
+from app.retrieval.hybrid import search_hybrid_chunks
 from app.retrieval.models import RetrievalResult
-from app.retrieval.retriever import search_similar_chunks
 
 
 @dataclass
@@ -33,10 +33,11 @@ class RAGService:
     ) -> RAGResponse:
         query_embedding = self.embedding_provider.embed(question)
 
-        results = search_similar_chunks(
+        results = search_hybrid_chunks(
             session=session,
+            query="recipes using carrots",
             query_embedding=query_embedding,
-            limit=limit,
+            limit=5,
         )
 
         return self.answer(

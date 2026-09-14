@@ -19,7 +19,8 @@ def test_build_context():
 
     result = RetrievalResult(
         chunk=chunk,
-        distance=0.2,
+        score=0.2,
+        source="vector",
     )
 
     context = build_context([result])

@@ -1,7 +1,8 @@
 from datetime import datetime
 
 from pgvector.sqlalchemy import Vector
-from sqlalchemy import JSON, DateTime, ForeignKey, String, Text
+from sqlalchemy import JSON, Computed, DateTime, ForeignKey, String, Text
+from sqlalchemy.dialects.postgresql import TSVECTOR
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -37,6 +38,14 @@ class Chunk(Base):
     )
 
     content: Mapped[str] = mapped_column(Text, nullable=False)
+
+    search_vector: Mapped[str] = mapped_column(
+        TSVECTOR,
+        Computed(
+            "to_tsvector('english', content)",
+            persisted=True,
+        ),
+    )
 
     chunk_index: Mapped[int] = mapped_column(nullable=False)
 

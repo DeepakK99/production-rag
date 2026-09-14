@@ -17,6 +17,7 @@ def search_similar_chunks(
             Chunk,
             distance.label("distance"),
         )
+        .where(Chunk.embedding.is_not(None))
         .order_by(distance)
         .limit(limit)
     )
@@ -26,7 +27,8 @@ def search_similar_chunks(
     return [
         RetrievalResult(
             chunk=chunk,
-            distance=distance,
+            score=1.0 - float(distance),
+            source="vector",
         )
         for chunk, distance in rows
     ]
