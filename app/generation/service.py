@@ -35,7 +35,7 @@ class RAGService:
 
         results = search_hybrid_chunks(
             session=session,
-            query="recipes using carrots",
+            query=question,
             query_embedding=query_embedding,
             limit=limit,
         )

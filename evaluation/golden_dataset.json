@@ -1,0 +1,283 @@
+[
+  {
+    "id": "q01",
+    "question": "How do I make carrot halva?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "12.8"
+      }
+    ]
+  },
+  {
+    "id": "q02",
+    "question": "How do I make Stuffed Parathas?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "4.3"
+      }
+    ]
+  },
+  {
+    "id": "q03",
+    "question": "How do I make Dahi Vada?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "5.4"
+      }
+    ]
+  },
+  {
+    "id": "q04",
+    "question": "How do I make Navrattan Pullao?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "8.5"
+      }
+    ]
+  },
+  {
+    "id": "q05",
+    "question": "What ingredients are needed for Coriander Fish?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "9.2",
+        "section": "Ingredients"
+      }
+    ]
+  },
+  {
+    "id": "q06",
+    "question": "What ingredients are used in Green Pepper Curry?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "6.6",
+        "section": "Ingredients"
+      }
+    ]
+  },
+  {
+    "id": "q07",
+    "question": "Which ingredients are needed for Malai Chicken?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "10.2",
+        "section": "Ingredients"
+      }
+    ]
+  },
+  {
+    "id": "q08",
+    "question": "What are the recipes using chicken?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "10.1"
+      },
+      {
+        "recipe_number": "10.2"
+      },
+      {
+        "recipe_number": "10.3"
+      },
+      {
+        "recipe_number": "10.4"
+      },
+      {
+        "recipe_number": "10.5"
+      }
+    ]
+  },
+  {
+    "id": "q09",
+    "question": "How do I make North Indian Style Chicken Curry?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "10.3"
+      }
+    ]
+  },
+  {
+    "id": "q10",
+    "question": "Which recipe contains Coriander?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "3.3"
+      },
+      {
+        "recipe_number": "5.1"
+      },
+      {
+        "recipe_number": "5.3"
+      },
+      {
+        "recipe_number": "6.1"
+      },
+      {
+        "recipe_number": "6.2"
+      },
+      {
+        "recipe_number": "6.3"
+      },
+      {
+        "recipe_number": "6.4"
+      },
+      {
+        "recipe_number": "6.6"
+      },
+      {
+        "recipe_number": "6.8"
+      },
+      {
+        "recipe_number": "6.9"
+      },
+      {
+        "recipe_number": "6.10"
+      },
+      {
+        "recipe_number": "6.11"
+      },
+      {
+        "recipe_number": "6.13"
+      },
+      {
+        "recipe_number": "7.1"
+      },
+      {
+        "recipe_number": "8.1"
+      },
+      {
+        "recipe_number": "8.2"
+      },
+      {
+        "recipe_number": "8.3"
+      },
+      {
+        "recipe_number": "9.1"
+      },
+      {
+        "recipe_number": "9.2"
+      },
+      {
+        "recipe_number": "10.1"
+      },
+      {
+        "recipe_number": "10.3"
+      },
+      {
+        "recipe_number": "10.5"
+      },
+      {
+        "recipe_number": "11.2"
+      },
+      {
+        "recipe_number": "11.4"
+      }
+    ]
+  },
+  {
+    "id": "q11",
+    "question": "Which dessert is made from carrots?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "12.8"
+      }
+    ]
+  },
+  {
+    "id": "q12",
+    "question": "Which recipe uses chicken?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "10.1"
+      },
+      {
+        "recipe_number": "10.2"
+      },
+      {
+        "recipe_number": "10.3"
+      },
+      {
+        "recipe_number": "10.4"
+      },
+      {
+        "recipe_number": "10.5"
+      }
+    ]
+  },
+  {
+    "id": "q13",
+    "question": "What dessert can be served warm?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "12.8"
+      }
+    ]
+  },
+  {
+    "id": "q14",
+    "question": "Give me the complete method for carrot halva.",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "12.8",
+        "section": "Method"
+      }
+    ]
+  },
+  {
+    "id": "q15",
+    "question": "What are the ingredients and preparation steps for Mah Ki Dal?",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "7.3"
+      }
+    ]
+  },
+  {
+    "id": "q16",
+    "question": "Give me the full recipe for Chicken Pullao.",
+    "answerable": true,
+    "relevant": [
+      {
+        "recipe_number": "8.1"
+      }
+    ]
+  },
+  {
+    "id": "q17",
+    "question": "How do I make chocolate cake?",
+    "answerable": false,
+    "relevant": []
+  },
+  {
+    "id": "q18",
+    "question": "What temperature should I bake carrot halva at?",
+    "answerable": false,
+    "relevant": []
+  },
+  {
+    "id": "q19",
+    "question": "How many calories are in carrot halva?",
+    "answerable": false,
+    "relevant": []
+  },
+  {
+    "id": "q20",
+    "question": "Can I substitute butter for the ghee in Mughlai Chicken with Almonds?",
+    "answerable": false,
+    "relevant": []
+  }
+]
