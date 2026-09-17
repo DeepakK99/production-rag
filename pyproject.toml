@@ -13,6 +13,7 @@ dependencies = [
     "alembic",
     "unstructured[pdf]",
     "ollama",
+    "sentence-transformers",
 ]
 
 [tool.setuptools.packages.find]

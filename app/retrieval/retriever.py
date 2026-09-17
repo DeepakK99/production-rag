@@ -8,7 +8,7 @@ from app.retrieval.models import RetrievalResult
 def search_similar_chunks(
     session: Session,
     query_embedding: list[float],
-    limit: int = 5,
+    limit: int = 50, # increasing size from 5 to 50
 ) -> list[RetrievalResult]:
     distance = Chunk.embedding.cosine_distance(query_embedding)
 

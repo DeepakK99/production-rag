@@ -8,6 +8,7 @@ from app.retrieval.citations import Citation, build_citations
 from app.retrieval.context import build_context
 from app.retrieval.hybrid import search_hybrid_chunks
 from app.retrieval.models import RetrievalResult
+from app.reranking.models import Reranker
 
 
 @dataclass
@@ -21,15 +22,18 @@ class RAGService:
         self,
         embedding_provider: EmbeddingProvider,
         llm_provider: LLMProvider,
+        reranker: Reranker,
     ):
         self.embedding_provider = embedding_provider
         self.llm_provider = llm_provider
+        self.reranker = reranker
 
     def query(
         self,
         session: Session,
         question: str,
-        limit: int = 5,
+        candidate_limit: int = 50,
+        final_limit: int = 5,
     ) -> RAGResponse:
         query_embedding = self.embedding_provider.embed(question)
 
@@ -37,12 +41,17 @@ class RAGService:
             session=session,
             query=question,
             query_embedding=query_embedding,
-            limit=limit,
+            candidate_limit=candidate_limit,
+        )
+
+        reranked_results = self.reranker.rerank(
+            query=question,
+            results=results,
         )
 
         return self.answer(
             question=question,
-            results=results,
+            results=reranked_results[:final_limit],
         )
 
     def answer(
@@ -52,10 +61,15 @@ class RAGService:
     ) -> RAGResponse:
         context = build_context(results)
 
-        prompt = f"""
-You are a helpful recipe assistant.
+        prompt = f"""You are a helpful recipe assistant.
 
 Answer the user's question using only the provided context.
+
+Use citations in the form [1], [2], etc. when making factual claims.
+Each citation number corresponds to the source with the same number
+in the provided context.
+Only use citation numbers that exist in the provided context.
+Do not invent citation numbers.
 
 If the context does not contain enough information to answer the question,
 say that you don't have enough information.

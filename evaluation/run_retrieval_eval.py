@@ -5,11 +5,16 @@ from app.database import SessionLocal
 from app.evaluation.retrieval import mean_reciprocal_rank, recall_at_k, precision_at_k
 from app.ingestion.embedding import OllamaEmbeddingProvider
 from app.retrieval.hybrid import search_hybrid_chunks
+from app.reranking.cross_encoder import CrossEncoderReranker
 
 DATASET_PATH = Path(__file__).parent / "golden_dataset.json"
 
 embedding_provider = OllamaEmbeddingProvider(
     model="nomic-embed-text:latest",
+)
+
+reranker = CrossEncoderReranker(
+    model="cross-encoder/ms-marco-MiniLM-L-6-v2",
 )
 
 
@@ -21,7 +26,8 @@ def load_dataset() -> list[dict]:
 def evaluate_question(
     session,
     question_data: dict,
-    k: int = 5,
+    k: int = 50,
+    l: int = 5,
 ) -> float:
     question = question_data["question"]
     relevant = question_data["relevant"]
@@ -32,41 +38,46 @@ def evaluate_question(
         session=session,
         query=question,
         query_embedding=query_embedding,
-        limit=k,
     )
 
-    recall = recall_at_k(
+    reranked = reranker.rerank(
+        query=question,
         results=results,
+    )[:l]
+
+    recall = recall_at_k(
+        results=reranked,
         relevant=relevant,
         k=k,
     )
     precision = precision_at_k(
-        results=results,
+        results=reranked,
         relevant=relevant,
         k=5,
     )
 
     print(f"\nQuestion: {question}")
     print(f"Recall@{k}: {recall:.2f}")
-    print(f"Precision@5: {precision:.2f}")
+    print(f"Precision@{k}: {precision:.2f}")
 
-    print("Retrieved:")
+    # print("Retrieved:")
 
-    for rank, result in enumerate(results, start=1):
-        metadata = result.chunk.metadata_
+    # for rank, result in enumerate(results, start=1):
+    #     metadata = result.chunk.metadata_
 
-        print(
-            f"  {rank}. "
-            f"{metadata.get('recipe_number')} "
-            f"{metadata.get('recipe_name')} "
-            f"[{metadata.get('section')}] "
-            f"score={result.score:.4f}"
-        )
+    #     print(
+    #         f"  {rank}. "
+    #         f"{metadata.get('recipe_number')} "
+    #         f"{metadata.get('recipe_name')} "
+    #         f"[{metadata.get('section')}] "
+    #         f"score={result.score:.4f}"
+    #     )
 
-    return recall, precision, results
+    return recall, precision, reranked
 
 
 def main():
+    k = 50
     dataset = load_dataset()
 
     recall_scores = []
@@ -81,7 +92,7 @@ def main():
             recall, precision, results = evaluate_question(
                 session=session,
                 question_data=question_data,
-                k=5,
+                k=k,
             )
 
             recall_scores.append(recall)
@@ -98,8 +109,8 @@ def main():
     )
 
     print("\n====================")
-    print(f"Average Recall@5: {average_recall:.2f}")
-    print(f"Average Precision@5: {average_precision:.2f}")
+    print(f"Average Recall@{k}: {average_recall:.2f}")
+    print(f"Average Precision@{k}: {average_precision:.2f}")
     print(f"MRR: {mrr:.2f}")
     print("====================")
 

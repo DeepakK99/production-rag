@@ -8,11 +8,19 @@ from app.retrieval.models import RetrievalResult
 def search_keyword_chunks(
     session: Session,
     query: str,
-    limit: int = 5,
+    limit: int = 50, # increasing limit from 5 to 50
 ) -> list[RetrievalResult]:
+    # using 'OR' to avoid making it too restrictive
+    terms = query.split()
+
+    if not terms:
+        return []
+
+    keyword_query = " OR ".join(terms)
+
     search_query = func.websearch_to_tsquery(
         "english",
-        query,
+        keyword_query,
     )
 
     rank = func.ts_rank_cd(

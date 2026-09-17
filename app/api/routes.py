@@ -6,6 +6,7 @@ from app.database import SessionLocal
 from app.generation.llm import OllamaLLMProvider
 from app.generation.service import RAGService
 from app.ingestion.embedding import OllamaEmbeddingProvider
+from app.reranking.cross_encoder import CrossEncoderReranker
 
 router = APIRouter()
 
@@ -27,11 +28,16 @@ llm_provider = OllamaLLMProvider(
     model="gemma3:4b",
 )
 
+crossencoder_reranker = CrossEncoderReranker(
+    model="cross-encoder/ms-marco-MiniLM-L-6-v2"
+)
+
 
 def get_rag_service() -> RAGService:
     return RAGService(
         embedding_provider=embedding_provider,
         llm_provider=llm_provider,
+        reranker=crossencoder_reranker,
     )
 
 

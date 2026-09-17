@@ -42,18 +42,18 @@ def search_hybrid_chunks(
     session: Session,
     query: str,
     query_embedding: list[float],
-    limit: int = 5,
+    candidate_limit: int = 50,
 ) -> list[RetrievalResult]:
     vector_results = search_similar_chunks(
         session=session,
         query_embedding=query_embedding,
-        limit=limit,
+        limit=candidate_limit,
     )
 
     keyword_results = search_keyword_chunks(
         session=session,
         query=query,
-        limit=limit,
+        limit=candidate_limit,
     )
 
     return reciprocal_rank_fusion(
@@ -61,4 +61,4 @@ def search_hybrid_chunks(
             vector_results,
             keyword_results,
         ]
-    )[:limit]
+    )
